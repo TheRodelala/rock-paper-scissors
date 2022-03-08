@@ -1,6 +1,24 @@
 let userScore = 0;
 let computerScore = 0;
-//console.log(userPick);
+let computerScore_div = document.querySelector(".computerScore");
+let userScore_div = document.querySelector(".userScore");
+let result_div = document.querySelector(".result");
+const rock_button = document.querySelector(".rock");
+const paper_button = document.querySelector(".paper");
+const scissors_button = document.querySelector(".scissors")
+
+rock_button.addEventListener('click', function(){
+    game("r");
+})
+
+paper_button.addEventListener('click', function(){
+    game("p");
+})
+
+scissors_button.addEventListener('click', function(){
+    game("s");
+})
+
 
 function getComputerChoice() {
     const choices = ['r', 'p', 's'];
@@ -14,23 +32,24 @@ function toWord(letter){
     return "Scissors";
 }
 
-function game() {
-    let userChoice = prompt ('Rock, paper or scissors?')
-    const userPick = userChoice.toLowerCase().charAt(0)
+function game(userPick) {
     const computerChoice = getComputerChoice()
-    console.log(computerChoice);
-    console.log(userPick);
     if (userPick === computerChoice) {
-        alert (`It's a draw.\nPlayer: ${toWord(userPick)}\nComputer: ${toWord(computerChoice)}\nPlayer score:${userScore}\nComputer score:${computerScore}`)
+        result_div = "Draw!"
     } else if (userPick === "r" && computerChoice === "s" || userPick === "s" && computerChoice === "p" || userPick === "p" && computerChoice === "r") {
         userScore++;
-        alert (`Player wins!\nPlayer: ${toWord(userPick)}\nComputer: ${toWord(computerChoice)}\nPlayer score:${userScore}\nComputer score:${computerScore}`)
+        userScore_div.innerHTML = userScore;
+        result_div.innerHTML = "You Win!"
     } else {
         computerScore++;
-        alert (`Computer wins!\nPlayer: ${toWord(userPick)}\nComputer: ${toWord(computerChoice)}\nPlayer score:${userScore}\nComputer score:${computerScore}`)
+        computerScore_div.innerHTML = computerScore;
+        result_div.innerHTML = "You Lose!"
     }
+    console.log(computerChoice);
+    console.log(userPick);
 }
-console.log(userScore);
+
+/* console.log(userScore);
 console.log(computerScore);
 
 for (let i = 0; i < 5; i++){
@@ -50,4 +69,4 @@ function checkWin() {
 
 console.log(userScore);
 console.log(computerScore);
-//console.log(userChoice);
+console.log(userChoice); */
