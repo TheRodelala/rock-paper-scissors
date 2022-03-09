@@ -6,6 +6,8 @@ let result_div = document.querySelector(".result");
 const rock_button = document.querySelector(".rock");
 const paper_button = document.querySelector(".paper");
 const scissors_button = document.querySelector(".scissors")
+const restart = document.querySelector(".restart")
+
 
 rock_button.addEventListener('click', function(){
     game("r");
@@ -35,19 +37,36 @@ function toWord(letter){
 function game(userPick) {
     const computerChoice = getComputerChoice()
     if (userPick === computerChoice) {
-        result_div = "Draw!"
+        result_div.innerHTML = "Draw!"
     } else if (userPick === "r" && computerChoice === "s" || userPick === "s" && computerChoice === "p" || userPick === "p" && computerChoice === "r") {
         userScore++;
         userScore_div.innerHTML = userScore;
-        result_div.innerHTML = "You Win!"
+        if (userScore <= 4) {
+            result_div.innerHTML = `You Win! ${toWord(userPick)} beats ${toWord(computerChoice)}!`
+        } else {
+            result_div.innerHTML = "You won the game. Congratz"
+            const restartButton = document.createElement("button")
+            restartButton.textContent = "Restart"
+            restart.appendChild(restartButton);
+            restartButton.addEventListener('click', function(){
+                window.location.reload();
+            })
+        }
     } else {
         computerScore++;
         computerScore_div.innerHTML = computerScore;
-        result_div.innerHTML = "You Lose!"
-    }
-    console.log(computerChoice);
-    console.log(userPick);
-}
+        if (computerScore <= 4){
+            result_div.innerHTML = `You Lose! ${toWord(computerChoice)} beats ${toWord(userPick)}!`
+        } else {
+            result_div.innerHTML = "You lost. Try again."
+            const restartButton = document.createElement("button")
+            restartButton.textContent = "Restart"
+            restart.appendChild(restartButton);
+            restartButton.addEventListener('click', function(){
+                window.location.reload();
+            })
+        }
+}}
 
 /* console.log(userScore);
 console.log(computerScore);
